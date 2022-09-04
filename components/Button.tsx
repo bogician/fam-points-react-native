@@ -11,14 +11,15 @@ export enum EButtonTypes {
 export interface ICustomButtonProps {
   type: EButtonTypes;
   text: string;
-  action: () => any
+  action: () => any;
+  loading: boolean;
 }
 
-const Button: React.FC<ICustomButtonProps> = ({type, action, text}: ICustomButtonProps) => {
+const Button: React.FC<ICustomButtonProps> = ({type, action, text, loading}: ICustomButtonProps) => {
   return (
     <RNButton
       title={text}
-      loading={false}
+      loading={loading}
       loadingProps={{ size: 'small', color: 'white' }}
       buttonStyle={
         styles.button

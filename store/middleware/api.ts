@@ -1,23 +1,25 @@
 import axios from 'axios';
 import { ELocalStoreKeys } from '../../models/models';
+// @ts-ignore
+import { API_URL } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const getToken = () => {
-  return localStorage.getItem(ELocalStoreKeys.TOKEN);
+const getToken = async () => {
+  return AsyncStorage.getItem(ELocalStoreKeys.TOKEN)
 };
 
-const defaultHeaders = { 'Content-Type': 'appliction/json' };
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  headers: defaultHeaders,
+  baseURL: API_URL,
 });
 
 instance.interceptors.request.use(async (config) => {
-  const hasToken = !!getToken();
-  if (hasToken) {
+  const token = await getToken();
+
+  if (token) {
     try {
       // @ts-ignore
-      config.headers['Authorization'] = `${hasToken}`;
+      config.headers['Authorization'] = `${token}`;
     } catch (err) {
       console.log(err);
       localStorage.clear();

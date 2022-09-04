@@ -5,10 +5,10 @@ export enum ERoles {
 
 export interface IUser {
   email: string;
-  accessToken: string;
-  role: ERoles;
+  role?: ERoles;
 }
 
 export enum ELocalStoreKeys {
-  TOKEN = 'idToken'
+  TOKEN = 'idToken',
+  EMAIL = 'email'
 }

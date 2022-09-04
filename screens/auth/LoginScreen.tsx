@@ -1,13 +1,24 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Image, StyleSheet, TextInput } from 'react-native';
 import Button, { EButtonTypes } from '../../components/Button';
 
 import { Text, View } from '../../components/Themed';
 import Colors from '../../constants/Colors';
+import { sendCode } from '../../store/actions/user';
+import { useAppDispatch } from '../../store/hooks';
 import { RootStackScreenProps } from '../../types';
 
 export default function LoginScreen({ navigation }: RootStackScreenProps<'AuthLogin'>) {
   const [email, onChangeEmail] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false)
+  const dispatch = useAppDispatch();
+
+  const sendCodeCallback = useCallback(async () => {
+    setLoading(true);
+    await dispatch(sendCode(email));
+    navigation.push('AuthCodeLogin');
+    setLoading(false)
+  }, [email]);
 
   return (
     <View style={styles.container}>
@@ -21,9 +32,10 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'AuthLo
         placeholderTextColor={Colors.dark.lightGrey}
       />
       <Button
-       type={EButtonTypes.primary}
-       text='Увійти'
-       action={() => {navigation.push('AuthCodeLogin')}}
+        loading={loading}
+        type={EButtonTypes.primary}
+        text="Увійти"
+        action={sendCodeCallback}
       />
     </View>
   );

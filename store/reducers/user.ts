@@ -1,7 +1,7 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../../models/models';
 import {
-  login,
+  login, sendCode,
 } from '../actions/user';
 import { EUser } from '../constants';
 
@@ -29,8 +29,13 @@ const { actions, reducer } = createSlice({
           return;
         }
 
-        state.user = payload as unknown as IUser;
+        state.user = payload as IUser;
         state.loading = false;
+      })
+      .addCase(sendCode.fulfilled, (state, { payload }) => {
+        state.user = {
+          email: payload
+        }
       })
       .addCase(clearUserState, () => initialState);
   },
