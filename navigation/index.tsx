@@ -13,7 +13,8 @@ import BottomTabNavigator from '../components/BottomNvabar';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import LoginScreen from '../screens/LoginScreen';
+import LoginCodeScreen from '../screens/auth/LoginCodeScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -42,7 +43,8 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Screen name="Auth" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="AuthLogin" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="AuthCodeLogin" component={LoginCodeScreen} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
