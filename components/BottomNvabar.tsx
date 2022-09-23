@@ -1,12 +1,13 @@
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
+import { Header } from './Header/Header';
 
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -28,6 +29,7 @@ export default function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'MyEvents'>) => ({
           title: 'My events',
+          headerStyle: {...styles.header},
           tabBarIcon: ({ color }) => <TabBarHomeIcon color={color} />,
           headerRight: () => (
             <Pressable
@@ -49,8 +51,7 @@ export default function BottomTabNavigator() {
         name="AllEvents"
         component={TabTwoScreen}
         options={{
-          title: 'All Events',
-          tabBarIcon: ({ color }) => <TabBarAllEventsIcon color={color} />,
+          header: () => <Header />
         }}
       />
     </BottomTab.Navigator>
@@ -67,3 +68,15 @@ function TabBarHomeIcon(props: { color: string; }) {
 function TabBarAllEventsIcon(props: { color: string; }) {
   return <Feather name='smile' size={30} style={{ marginBottom: -3 }} {...props} />;
 }
+
+const styles = StyleSheet.create({
+  header: {
+    height: 100,
+    backgroundColor: Colors.light.lightBlue,
+  },
+  containerStyle: {
+    height: 40,
+    width: '100%',
+    marginTop: 80,
+  },
+});
