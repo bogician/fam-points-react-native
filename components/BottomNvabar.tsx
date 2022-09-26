@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
+import MyEventsScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootTabParamList, RootTabScreenProps } from '../types';
 import { Header } from './Header/Header';
@@ -26,26 +26,10 @@ export default function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="MyEvents"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'MyEvents'>) => ({
-          title: 'My events',
-          headerStyle: {...styles.header},
-          tabBarIcon: ({ color }) => <TabBarHomeIcon color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
+        component={MyEventsScreen}
+        options={{
+          header: () => <Header />
+        }}
       />
       <BottomTab.Screen
         name="AllEvents"

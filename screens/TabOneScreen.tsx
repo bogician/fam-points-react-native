@@ -5,21 +5,18 @@ import { Button, StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import { ELocalStoreKeys } from '../models/models';
-import { useAppSelector } from '../store/hooks';
+import { getAllForUser } from '../store/actions/events';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { getEventsSelector } from '../store/selectors/getEventsSelector';
 import { getUserSelector } from '../store/selectors/getUserSelector';
 import { RootTabScreenProps } from '../types';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'MyEvents'>) {
-  const user = useAppSelector(getUserSelector);
-  const [token, setToken] = useState('');
+  const dispatch = useAppDispatch();
+  const events = useAppSelector(getEventsSelector);
 
   useEffect(() => {
-    const getToken = async () => {
-      const token = await AsyncStorage.getItem(ELocalStoreKeys.TOKEN);
-      setToken(String(token));
-    };
-
-    getToken();
+    dispatch(getAllForUser());
   }, []);
 
   return (
@@ -27,9 +24,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'MyEvent
       <Text style={styles.title}>Tab One</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <Text>{`email: ${user?.email}`}</Text>
-      <Text>{`role: ${user?.role}`}</Text>
-      <Text>{`AccessToken: ${token}`}</Text>
 
       <Button title={'Go to login'} onPress={() => {
         navigation.push('AuthLogin');

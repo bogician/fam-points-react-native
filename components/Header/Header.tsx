@@ -1,3 +1,4 @@
+import { Button, Icon } from '@rneui/themed';
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
@@ -10,12 +11,25 @@ export const Header: React.FC = () => {
 
   return (
     <View style={styles.header}>
-      <View style={styles.logoWrapper}>
-        <Image style={styles.logo} source={require('../../assets/fma-logo.png')} />
-      </View>
       <Text style={styles.email}>
-        {user?.email || 'bogdan.bahmet@gmail.com'}
+        {user?.email || 'bogdan.bahmet@...'}
       </Text>
+      <View style={styles.pointsBlock}>
+        <Text>
+          60 балів
+        </Text>
+      </View>
+      <Button
+        type="clear"
+        style={styles.menuIcon}
+        containerStyle={{
+          marginLeft: 'auto',
+        }}
+        onPress={() => {
+          console.log('click');
+        }}>
+        <Icon name="menu" type="feather" color={Colors.light.blue} />
+      </Button>
     </View>
   );
 };
@@ -25,32 +39,32 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: Colors.light.lightBlue,
     flexDirection: 'row',
-    paddingLeft: 25,
-    paddingRight: 25,
-    paddingTop: 50,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 40,
     paddingBottom: 20,
   },
   email: {
-    textAlign: 'center',
-    height: 30,
-    width: 100,
+    overflow: 'hidden',
+    marginTop: 'auto',
   },
-  logoWrapper: {
-    backgroundColor: 'white',
-    borderRadius: 100,
-    width: 30,
-    height: 30,
-    marginRight: 10,
-  },
-  logo: {
-    width: 25,
-    height: 15,
-    marginTop: '20%',
-    marginLeft: '8%',
+  pointsBlock: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: Colors.light.violet,
+    marginLeft: 25,
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: Colors.light.lightBlue,
+    marginTop: 'auto',
   },
   containerStyle: {
     height: 40,
     width: '100%',
     marginTop: 80,
+  },
+  menuIcon: {
+    height: 50,
+    marginTop: 10,
   },
 });
