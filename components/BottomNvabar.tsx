@@ -22,20 +22,54 @@ export default function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="MyEvents"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+        tabBarLabelPosition: 'beside-icon',
+        tabBarLabelStyle: {
+          position: 'absolute',
+          top: 12,
+          fontWeight: '500',
+          fontSize: 22,
+        },
+        tabBarIconStyle: { display: 'none', width: 5, height: 5 },
+        tabBarInactiveTintColor: Colors[colorScheme].grey,
+        tabBarActiveTintColor: Colors[colorScheme].text,
+        tabBarStyle: {
+          backgroundColor: 'white',
+          marginLeft:58,
+          marginRight: 58,
+          marginBottom: 32,
+          borderRadius: 50,
+          position: 'absolute',
+          borderTopWidth: 0,
+          borderWidth: 1,
+          borderColor: '#FBFBFB',
+          height: 64,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        },
+      }}
+    >
       <BottomTab.Screen
         name="MyEvents"
         component={MyEventsScreen}
         options={{
-          header: () => <Header />
+          title: 'Мої',
+          tabBarIcon: undefined,
+          header: () => <Header />,
         }}
       />
       <BottomTab.Screen
         name="AllEvents"
         component={TabTwoScreen}
         options={{
-          header: () => <Header />
+          title: 'Усі',
+          tabBarIcon: undefined,
+          header: () => <Header />,
         }}
       />
     </BottomTab.Navigator>
@@ -46,11 +80,11 @@ export default function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarHomeIcon(props: { color: string; }) {
-  return <AntDesign name='home' size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <AntDesign name="home" size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 function TabBarAllEventsIcon(props: { color: string; }) {
-  return <Feather name='smile' size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <Feather name="smile" size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 const styles = StyleSheet.create({

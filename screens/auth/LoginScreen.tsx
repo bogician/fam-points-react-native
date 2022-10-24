@@ -25,6 +25,8 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'AuthLo
       <Image style={styles.logo} source={require('../../assets/fma-logo.png')} />
       <Text style={styles.title}>Увійти</Text>
       <TextInput
+        autoComplete='email'
+        textContentType='emailAddress'
         style={styles.input}
         onChangeText={onChangeEmail}
         value={email}

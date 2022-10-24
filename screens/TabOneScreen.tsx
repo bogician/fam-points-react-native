@@ -4,6 +4,7 @@ import { Button, StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import AuthGuard from '../guards/AuthGuard';
 import { ELocalStoreKeys } from '../models/models';
 import { getAllForUser } from '../store/actions/events';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
@@ -20,15 +21,17 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'MyEvent
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+    <AuthGuard navigation={navigation}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Tab One</Text>
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <EditScreenInfo path="/screens/TabOneScreen.tsx" />
 
-      <Button title={'Go to login'} onPress={() => {
-        navigation.push('AuthLogin');
-      }} />
-    </View>
+        <Button title={'Go to login'} onPress={() => {
+          navigation.push('AuthLogin');
+        }} />
+      </View>
+    </AuthGuard>
   );
 }
 
